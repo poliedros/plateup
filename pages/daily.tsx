@@ -1,5 +1,3 @@
-import Link from "next/link";
-import Layout from "../components/Layout";
 import { Button, Col, Container, Form, Row, Table } from "react-bootstrap";
 import Icon from "../components/icon/icon";
 import { useEffect, useState } from "react";
@@ -37,7 +35,6 @@ function DailyPage() {
             weeks: [],
             days: [],
           };
-    alert(notesAX);
     notesAX.days.push({
       date: day,
       exercise: exercise,
@@ -53,7 +50,6 @@ function DailyPage() {
   };
 
   return (
-    // <Layout title="About | Next.js + TypeScript Example">
     <>
       <Container>
         <div className="flex flex-col items-end text-white text-right mt-24">
@@ -66,7 +62,6 @@ function DailyPage() {
                   <Form.Group className="mb-2">
                     <Form.Control
                       type="date"
-                      placeholder="name"
                       value={day}
                       onChange={(e: any) => setDay(e.target.value)}
                     />
@@ -85,7 +80,7 @@ function DailyPage() {
                 <Form.Group className="mb-2">
                   <Form.Label>Set</Form.Label>
                   <Form.Control
-                    placeholder="name"
+                    placeholder="3, 4, 1"
                     value={set}
                     onChange={(e: any) => setSet(e.target.value)}
                   />
@@ -122,62 +117,30 @@ function DailyPage() {
                 <Form.Group className="mb-2">
                   <Form.Label>Technique</Form.Label>
                   <Form.Control
-                    placeholder="name"
+                    placeholder="nothing"
                     value={technique}
                     onChange={(e: any) => setTechnique(e.target.value)}
                   />
                 </Form.Group>
               </Col>
-              {/* <Form.Group
-              className="mb-3 font-['PT_Sans_Narrow']"
-              controlId="exampleForm.ControlInput1"
-            >
-              <Form.Group className="mb-2">
-                <Form.Control type="date" placeholder="name" />
-              </Form.Group>
-              <Col>
-                <Form.Group className="mb-2">
-                  <Form.Label>Excercise</Form.Label>
-                  <Form.Control placeholder="name" />
-                </Form.Group>
-                <Form.Group className="mb-2">
-                  <Form.Label>Set</Form.Label>
-                  <Form.Control placeholder="name" />
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group className="mb-2">
-                  <Form.Label>Reps</Form.Label>
-                  <Form.Control placeholder="name" />
-                </Form.Group>
-                <Form.Group className="mb-2">
-                  <Form.Label>Rest</Form.Label>
-                  <Form.Control placeholder="name" />
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group className="mb-2">
-                  <Form.Label>Vel. C/E</Form.Label>
-                  <Form.Control placeholder="name" />
-                </Form.Group>
-                <Form.Group className="mb-2">
-                  <Form.Label>Technique</Form.Label>
-                  <Form.Control placeholder="name" />
-                </Form.Group>
-              </Col>
-            </Form.Group> */}
             </Row>
             <div className="flex justify-end mt-2">
-              <Button className="!flex items-center !rounded-full !bg-lime-500 !border-lime-500">
+              <Button
+                className="!flex items-center !rounded-full !bg-lime-500 !border-lime-500"
+                onClick={() => updateNotes()}
+              >
                 {Icon("md", "MdOutlineAddCircleOutline")}{" "}
-                <span className="ml-2" onClick={() => updateNotes()}>
-                  Add
-                </span>
+                <span className="ml-2">Add</span>
               </Button>
             </div>
           </Form>
         </div>
-        <Table className="font-['PT_Sans_Narrow']" variant="dark" hover>
+        <Table
+          className="font-['PT_Sans_Narrow']"
+          variant="dark"
+          responsive
+          hover
+        >
           <thead>
             <tr>
               <th>#</th>
@@ -216,14 +179,14 @@ function DailyPage() {
                         >
                           <Button
                             variant="warning"
-                            className={"!rounded-full !p-2 mr-2 -rotate-45"}
+                            className={"!rounded-full !p-[2px] mr-2 -rotate-45"}
                             disabled
                           >
                             {Icon("ri", "RiEditCircleFill", "16px")}
                           </Button>
                           <Button
                             variant="danger"
-                            className={"!rounded-full !p-2 -rotate-45"}
+                            className={"!rounded-full !p-[2px] -rotate-45"}
                             disabled
                           >
                             {Icon("hi", "HiTrash", "10px")}
@@ -234,28 +197,10 @@ function DailyPage() {
                   );
                 })
               : undefined}
-            {/* <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td colSpan={2}>Larry the Bird</td>
-            <td>@twitter</td>
-          </tr> */}
           </tbody>
         </Table>
       </Container>
     </>
-    // </Layout>
   );
 }
 

@@ -1,17 +1,6 @@
-import Link from "next/link";
-import Layout from "../components/Layout";
 import { Container, Form, Row, Col, Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import Icon from "../components/icon/icon";
-
-// let userData = {
-//   job: "Programmer",
-//   skills: [
-//     { id: 4200, name: "Angular" },
-//     { id: 3000, name: "React" },
-//     { id: 8080, name: "Vue" },
-//   ],
-// };
 
 function ProfilePage() {
   const [name, setName] = useState("");
@@ -19,20 +8,6 @@ function ProfilePage() {
   const [contact, setContact] = useState("");
   const [address, setAddress] = useState("");
   const [bmi, setBmi] = useState("");
-
-  // if (localStorage.getItem("profile") == null) {
-  //   // localStorage.setItem("details", JSON.stringify([]));
-  //   localStorage.setItem(
-  //     "profile",
-  //     JSON.stringify({
-  //       fullName: "",
-  //       email: "",
-  //       contact: "",
-  //       address: "",
-  //       bmi: "",
-  //     })
-  //   );
-  // }
 
   const [profile, setProfile] = useState({
     fullName: "",
@@ -43,48 +18,44 @@ function ProfilePage() {
   });
 
   useEffect(() => {
-    localStorage.setItem(
-      "profile",
-      JSON.stringify({
-        fullName:
-          JSON.parse(localStorage.getItem("profile")).fullName !== ""
+    if (JSON.parse(localStorage.getItem("profile"))) {
+      localStorage.setItem(
+        "profile",
+        JSON.stringify({
+          fullName: JSON.parse(localStorage.getItem("profile")).fullName
             ? JSON.parse(localStorage.getItem("profile")).fullName
             : "",
-        email:
-          JSON.parse(localStorage.getItem("profile")).email !== ""
+          email: JSON.parse(localStorage.getItem("profile")).email
             ? JSON.parse(localStorage.getItem("profile")).email
             : "",
-        contact:
-          JSON.parse(localStorage.getItem("profile")).contact !== ""
+          contact: JSON.parse(localStorage.getItem("profile")).contact
             ? JSON.parse(localStorage.getItem("profile")).contact
             : "",
-        address:
-          JSON.parse(localStorage.getItem("profile")).address !== ""
+          address: JSON.parse(localStorage.getItem("profile")).address
             ? JSON.parse(localStorage.getItem("profile")).address
             : "",
-        bmi:
-          JSON.parse(localStorage.getItem("profile")).bmi !== ""
+          bmi: JSON.parse(localStorage.getItem("profile")).bmi
             ? JSON.parse(localStorage.getItem("profile")).bmi
             : "",
-      })
-    );
+        })
+      );
 
-    if (JSON.parse(localStorage.getItem("profile")).fullName !== "")
-      setName(JSON.parse(localStorage.getItem("profile")).fullName);
-    if (JSON.parse(localStorage.getItem("profile")).email !== "")
-      setEmail(JSON.parse(localStorage.getItem("profile")).email);
-    if (JSON.parse(localStorage.getItem("profile")).contact !== "")
-      setContact(JSON.parse(localStorage.getItem("profile")).contact);
-    if (JSON.parse(localStorage.getItem("profile")).address !== "")
-      setAddress(JSON.parse(localStorage.getItem("profile")).address);
-    if (JSON.parse(localStorage.getItem("profile")).bmi !== "")
-      setBmi(JSON.parse(localStorage.getItem("profile")).bmi);
+      if (JSON.parse(localStorage.getItem("profile")).fullName)
+        setName(JSON.parse(localStorage.getItem("profile")).fullName);
+      if (JSON.parse(localStorage.getItem("profile")).email)
+        setEmail(JSON.parse(localStorage.getItem("profile")).email);
+      if (JSON.parse(localStorage.getItem("profile")).contact)
+        setContact(JSON.parse(localStorage.getItem("profile")).contact);
+      if (JSON.parse(localStorage.getItem("profile")).address)
+        setAddress(JSON.parse(localStorage.getItem("profile")).address);
+      if (JSON.parse(localStorage.getItem("profile")).bmi)
+        setBmi(JSON.parse(localStorage.getItem("profile")).bmi);
+    }
 
     setProfile(JSON.parse(localStorage.getItem("profile")));
   }, []);
 
   const updateProfile = () => {
-    // setProfile([...profile, eachEntry]);
     let profileDT = {
       fullName: name,
       email: email,
@@ -93,12 +64,10 @@ function ProfilePage() {
       bmi: bmi,
     };
     setProfile(profileDT);
-    // localStorage.setItem("details", JSON.stringify([...details, eachEntry]));
     localStorage.setItem("profile", JSON.stringify(profileDT));
   };
 
   return (
-    // <Layout title="About | Next.js + TypeScript Example">
     <>
       <Container>
         <div className="flex flex-col items-end text-white text-right mt-24">
@@ -175,12 +144,8 @@ function ProfilePage() {
             </div>
           </Form>
         </div>
-        {/* {localStorage.getItem("profile") !== ""
-          ? JSON.stringify(profile)
-          : localStorage.getItem("profile")} */}
       </Container>
     </>
-    // </Layout>
   );
 }
 

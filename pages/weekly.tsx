@@ -1,9 +1,7 @@
-import Link from "next/link";
-import Layout from "../components/Layout";
 import { Button, Col, Container, Form, Row, Table } from "react-bootstrap";
 import Icon from "../components/icon/icon";
 import { useEffect, useState } from "react";
-import { Agenda, Month, Week, Day } from "../interfaces";
+import { Agenda } from "../interfaces";
 
 function WeeklyPage() {
   const [dayOfWeek, setDayOfWeek] = useState("");
@@ -38,7 +36,6 @@ function WeeklyPage() {
             weeks: [],
             days: [],
           };
-    alert(notesAX);
     notesAX.weeks.push({
       days: dayOfWeek,
       sunday: sunday,
@@ -55,7 +52,6 @@ function WeeklyPage() {
   };
 
   return (
-    // <Layout title="About | Next.js + TypeScript Example">
     <>
       <Container>
         <div className="flex flex-col items-end text-white text-right mt-24">
@@ -68,7 +64,7 @@ function WeeklyPage() {
                   <Form.Group className="mb-2">
                     <Form.Control
                       type="week"
-                      placeholder="name"
+                      placeholder="activity"
                       value={dayOfWeek}
                       onChange={(e: any) => setDayOfWeek(e.target.value)}
                     />
@@ -79,7 +75,7 @@ function WeeklyPage() {
                 <Form.Group className="mb-2">
                   <Form.Label>Sunday</Form.Label>
                   <Form.Control
-                    placeholder="name"
+                    placeholder="activity"
                     value={sunday}
                     onChange={(e: any) => setSunday(e.target.value)}
                   />
@@ -87,7 +83,7 @@ function WeeklyPage() {
                 <Form.Group className="mb-2">
                   <Form.Label>Monday</Form.Label>
                   <Form.Control
-                    placeholder="name"
+                    placeholder="activity"
                     value={monday}
                     onChange={(e: any) => setMonday(e.target.value)}
                   />
@@ -97,7 +93,7 @@ function WeeklyPage() {
                 <Form.Group className="mb-2">
                   <Form.Label>Tuesday</Form.Label>
                   <Form.Control
-                    placeholder="name"
+                    placeholder="activity"
                     value={tuesday}
                     onChange={(e: any) => setTuesday(e.target.value)}
                   />
@@ -105,7 +101,7 @@ function WeeklyPage() {
                 <Form.Group className="mb-2">
                   <Form.Label>Wednesday</Form.Label>
                   <Form.Control
-                    placeholder="name"
+                    placeholder="activity"
                     value={wednesday}
                     onChange={(e: any) => setWednesday(e.target.value)}
                   />
@@ -115,7 +111,7 @@ function WeeklyPage() {
                 <Form.Group className="mb-2">
                   <Form.Label>Thursday</Form.Label>
                   <Form.Control
-                    placeholder="name"
+                    placeholder="activity"
                     value={thursday}
                     onChange={(e: any) => setThursday(e.target.value)}
                   />
@@ -123,7 +119,7 @@ function WeeklyPage() {
                 <Form.Group className="mb-2">
                   <Form.Label>Friday</Form.Label>
                   <Form.Control
-                    placeholder="name"
+                    placeholder="activity"
                     value={friday}
                     onChange={(e: any) => setFriday(e.target.value)}
                   />
@@ -133,24 +129,30 @@ function WeeklyPage() {
                 <Form.Group className="mb-2">
                   <Form.Label>Saturday</Form.Label>
                   <Form.Control
-                    placeholder="name"
+                    placeholder="activity"
                     value={saturday}
                     onChange={(e: any) => setSaturday(e.target.value)}
                   />
                 </Form.Group>
                 <div className="flex justify-center mt-2">
-                  <Button className="!flex items-center !rounded-full mb-2 !bg-lime-500 !border-lime-500">
+                  <Button
+                    className="!flex items-center !rounded-full mb-2 !bg-lime-500 !border-lime-500"
+                    onClick={() => updateNotes()}
+                  >
                     {Icon("md", "MdOutlineAddCircleOutline")}{" "}
-                    <span className="ml-2" onClick={() => updateNotes()}>
-                      Add
-                    </span>
+                    <span className="ml-2">Add</span>
                   </Button>
                 </div>
               </Col>
             </Row>
           </Form>
         </div>
-        <Table className="font-['PT_Sans_Narrow']" variant="dark" hover>
+        <Table
+          className="font-['PT_Sans_Narrow']"
+          variant="dark"
+          responsive
+          hover
+        >
           <thead>
             <tr>
               <th>#</th>
@@ -180,14 +182,16 @@ function WeeklyPage() {
                           >
                             <Button
                               variant="warning"
-                              className={"!rounded-full !p-2 mr-2 -rotate-45"}
+                              className={
+                                "!rounded-full !p-[2px] mr-2 -rotate-45"
+                              }
                               disabled
                             >
                               {Icon("ri", "RiEditCircleFill", "16px")}
                             </Button>
                             <Button
                               variant="danger"
-                              className={"!rounded-full !p-2 -rotate-45"}
+                              className={"!rounded-full !p-[2px] -rotate-45"}
                               disabled
                             >
                               {Icon("hi", "HiTrash", "10px")}
@@ -210,14 +214,16 @@ function WeeklyPage() {
                           >
                             <Button
                               variant="warning"
-                              className={"!rounded-full !p-2 mr-2 -rotate-45"}
+                              className={
+                                "!rounded-full !p-[2px] mr-2 -rotate-45"
+                              }
                               disabled
                             >
                               {Icon("ri", "RiEditCircleFill", "16px")}
                             </Button>
                             <Button
                               variant="danger"
-                              className={"!rounded-full !p-2 -rotate-45"}
+                              className={"!rounded-full !p-[2px] -rotate-45"}
                               disabled
                             >
                               {Icon("hi", "HiTrash", "10px")}
@@ -240,14 +246,16 @@ function WeeklyPage() {
                           >
                             <Button
                               variant="warning"
-                              className={"!rounded-full !p-2 mr-2 -rotate-45"}
+                              className={
+                                "!rounded-full !p-[2px] mr-2 -rotate-45"
+                              }
                               disabled
                             >
                               {Icon("ri", "RiEditCircleFill", "16px")}
                             </Button>
                             <Button
                               variant="danger"
-                              className={"!rounded-full !p-2 -rotate-45"}
+                              className={"!rounded-full !p-[2px] -rotate-45"}
                               disabled
                             >
                               {Icon("hi", "HiTrash", "10px")}
@@ -270,14 +278,16 @@ function WeeklyPage() {
                           >
                             <Button
                               variant="warning"
-                              className={"!rounded-full !p-2 mr-2 -rotate-45"}
+                              className={
+                                "!rounded-full !p-[2px] mr-2 -rotate-45"
+                              }
                               disabled
                             >
                               {Icon("ri", "RiEditCircleFill", "16px")}
                             </Button>
                             <Button
                               variant="danger"
-                              className={"!rounded-full !p-2 -rotate-45"}
+                              className={"!rounded-full !p-[2px] -rotate-45"}
                               disabled
                             >
                               {Icon("hi", "HiTrash", "10px")}
@@ -300,14 +310,16 @@ function WeeklyPage() {
                           >
                             <Button
                               variant="warning"
-                              className={"!rounded-full !p-2 mr-2 -rotate-45"}
+                              className={
+                                "!rounded-full !p-[2px] mr-2 -rotate-45"
+                              }
                               disabled
                             >
                               {Icon("ri", "RiEditCircleFill", "16px")}
                             </Button>
                             <Button
                               variant="danger"
-                              className={"!rounded-full !p-2 -rotate-45"}
+                              className={"!rounded-full !p-[2px] -rotate-45"}
                               disabled
                             >
                               {Icon("hi", "HiTrash", "10px")}
@@ -330,14 +342,16 @@ function WeeklyPage() {
                           >
                             <Button
                               variant="warning"
-                              className={"!rounded-full !p-2 mr-2 -rotate-45"}
+                              className={
+                                "!rounded-full !p-[2px] mr-2 -rotate-45"
+                              }
                               disabled
                             >
                               {Icon("ri", "RiEditCircleFill", "16px")}
                             </Button>
                             <Button
                               variant="danger"
-                              className={"!rounded-full !p-2 -rotate-45"}
+                              className={"!rounded-full !p-[2px] -rotate-45"}
                               disabled
                             >
                               {Icon("hi", "HiTrash", "10px")}
@@ -360,14 +374,16 @@ function WeeklyPage() {
                           >
                             <Button
                               variant="warning"
-                              className={"!rounded-full !p-2 mr-2 -rotate-45"}
+                              className={
+                                "!rounded-full !p-[2px] mr-2 -rotate-45"
+                              }
                               disabled
                             >
                               {Icon("ri", "RiEditCircleFill", "16px")}
                             </Button>
                             <Button
                               variant="danger"
-                              className={"!rounded-full !p-2 -rotate-45"}
+                              className={"!rounded-full !p-[2px] -rotate-45"}
                               disabled
                             >
                               {Icon("hi", "HiTrash", "10px")}
@@ -379,23 +395,6 @@ function WeeklyPage() {
                   );
                 })
               : undefined}
-            {/* <tr>
-              <td>1</td>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td colSpan={2}>Larry the Bird</td>
-              <td>@twitter</td>
-            </tr> */}
           </tbody>
         </Table>
       </Container>

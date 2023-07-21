@@ -1,5 +1,3 @@
-import Link from "next/link";
-import Layout from "../components/Layout";
 import { Button, Col, Container, Form, Modal, Row } from "react-bootstrap";
 import Icon from "../components/icon/icon";
 import { useState } from "react";
@@ -13,7 +11,6 @@ function BMIPage() {
   const [height, setHeight] = useState(0);
   const [weight, setWeight] = useState(0);
   return (
-    // <Layout title="About | Next.js + TypeScript Example">
     <>
       <Container>
         <div className="flex flex-col items-end text-white text-right mt-24">
@@ -32,7 +29,11 @@ function BMIPage() {
             </Button>
           </div>
         </div>
+        <div className="relative -z-1 left-0 md:left-[100px]">
+          <div className="absolute rounded-full min-w-[220px] min-h-[220px] bg-[url('https://images.unsplash.com/photo-1611077543693-a0194a16b034?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1006&q=80')] bg-cover bg-right"></div>
+        </div>
       </Container>
+
       <Modal
         show={show}
         onHide={handleClose}
@@ -52,6 +53,7 @@ function BMIPage() {
                 <Form.Label>Height (m)</Form.Label>
                 <Form.Control
                   placeholder="1.79"
+                  type={"number"}
                   value={height}
                   onChange={(e: any) => setHeight(e.target.value)}
                 />
@@ -60,6 +62,7 @@ function BMIPage() {
                 <Form.Label>Weight (kg)</Form.Label>
                 <Form.Control
                   placeholder="87"
+                  type={"number"}
                   value={weight}
                   onChange={(e: any) => setWeight(e.target.value)}
                 />
@@ -68,37 +71,49 @@ function BMIPage() {
             <Col className="flex flex-col justify-center items-center">
               <h5 className="font-['PT_Sans_Narrow']">Your BMI:</h5>
               <h1 className="font-['DM_Serif_Text'] text-amber-300 text-6xl">
-                {Math.round((weight / (height * height)) * 10) / 10}
+                {isFinite(Math.round((weight / (height * height)) * 10) / 10)
+                  ? Math.round((weight / (height * height)) * 10) / 10
+                  : ""}
               </h1>
               <h4 className="font-['Square_Peg'] -rotate-[9deg]">
-                {Math.round((weight / (height * height)) * 10) / 10 < 16 ? (
-                  <span className="text-red-500 flex flex-col items-end">
-                    Nothing Good Buddy, we must change everything
-                    {Icon("bs", "BsFillEmojiAngryFill")}
-                  </span>
-                ) : Math.round((weight / (height * height)) * 10) / 10 > 16 &&
-                  Math.round((weight / (height * height)) * 10) / 10 < 18.5 ? (
-                  <span className="text-yellow-500 flex flex-col items-end">
-                    Some increment are needed{" "}
-                    {Icon("bs", "BsEmojiExpressionlessFill")}
-                  </span>
-                ) : Math.round((weight / (height * height)) * 10) / 10 > 18.5 &&
-                  Math.round((weight / (height * height)) * 10) / 10 < 25 ? (
-                  <span className="text-lime-500 flex flex-col items-end">
-                    You are just fine {Icon("bs", "BsFillEmojiSunglassesFill")}
-                  </span>
-                ) : Math.round((weight / (height * height)) * 10) / 10 > 25 &&
-                  Math.round((weight / (height * height)) * 10) / 10 < 30 ? (
-                  <span className="text-yellow-500 flex flex-col items-end">
-                    You need to work I little herder
-                    {Icon("bs", "BsEmojiNeutralFill")}
-                  </span>
-                ) : Math.round((weight / (height * height)) * 10) / 10 > 30 ? (
-                  <span className="text-red-500 flex flex-col items-end">
-                    We have many work to done there, let start
-                    {Icon("bs", "BsEmojiDizzyFill")}
-                  </span>
-                ) : undefined}
+                {isFinite(
+                  Math.round((weight / (height * height)) * 10) / 10
+                ) ? (
+                  Math.round((weight / (height * height)) * 10) / 10 < 16 ? (
+                    <span className="text-red-500 flex flex-col items-end">
+                      Nothing Good Buddy, we must change everything
+                      {Icon("bs", "BsFillEmojiAngryFill")}
+                    </span>
+                  ) : Math.round((weight / (height * height)) * 10) / 10 > 16 &&
+                    Math.round((weight / (height * height)) * 10) / 10 <
+                      18.5 ? (
+                    <span className="text-yellow-500 flex flex-col items-end">
+                      Some increment are needed{" "}
+                      {Icon("bs", "BsEmojiExpressionlessFill")}
+                    </span>
+                  ) : Math.round((weight / (height * height)) * 10) / 10 >
+                      18.5 &&
+                    Math.round((weight / (height * height)) * 10) / 10 < 25 ? (
+                    <span className="text-lime-500 flex flex-col items-end">
+                      You are just fine{" "}
+                      {Icon("bs", "BsFillEmojiSunglassesFill")}
+                    </span>
+                  ) : Math.round((weight / (height * height)) * 10) / 10 > 25 &&
+                    Math.round((weight / (height * height)) * 10) / 10 < 30 ? (
+                    <span className="text-yellow-500 flex flex-col items-end">
+                      You need to work I little herder
+                      {Icon("bs", "BsEmojiNeutralFill")}
+                    </span>
+                  ) : Math.round((weight / (height * height)) * 10) / 10 >
+                    30 ? (
+                    <span className="text-red-500 flex flex-col items-end">
+                      We have many work to done there, let start
+                      {Icon("bs", "BsEmojiDizzyFill")}
+                    </span>
+                  ) : undefined
+                ) : (
+                  ""
+                )}
               </h4>
             </Col>
           </Row>
@@ -107,13 +122,9 @@ function BMIPage() {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          {/* <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button> */}
         </Modal.Footer>
       </Modal>
     </>
-    // </Layout>
   );
 }
 

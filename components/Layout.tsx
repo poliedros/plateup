@@ -1,17 +1,55 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Head from "next/head";
 import Image from "next/image";
 import Icon from "./icon/icon";
-import { Button } from "react-bootstrap";
+import {
+  Button,
+  Offcanvas,
+  Overlay,
+  OverlayTrigger,
+  Popover,
+  Tooltip,
+} from "react-bootstrap";
 
 type Props = {
   children?: ReactNode;
   title?: string;
 };
 
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window as any;
+  return {
+    width,
+    height,
+  };
+}
+
+export function useWindowDimensions() {
+  const [windowDimensions, setWindowDimensions] = useState(
+    typeof window !== "undefined" ? getWindowDimensions() : undefined
+  );
+
+  useEffect(() => {
+    function handleResize() {
+      if (typeof window !== "undefined")
+        setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return windowDimensions;
+}
+
 function Layout({ children, title = "This is the default title" }: Props) {
   const [drop, setDrop] = useState(true);
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return (
     <div>
@@ -70,16 +108,42 @@ function Layout({ children, title = "This is the default title" }: Props) {
                   "12px"
                 )}
               </Button>
-              <Button
-                variant="dark"
-                className={
-                  (!drop ? "!rotate-0" : "") +
-                  " !rounded-full !p-2 rotate-0 md:-rotate-45"
-                }
-                disabled
-              >
-                {Icon("hi", "HiMenu", "24px")}
-              </Button>
+              {typeof window !== "undefined" ? (
+                useWindowDimensions().width > 1280 ? (
+                  <Button
+                    variant="dark"
+                    className={
+                      (!drop ? "!rotate-0" : "") +
+                      " !rounded-full !p-2 rotate-0 md:-rotate-45"
+                    }
+                    disabled
+                  >
+                    {Icon("hi", "HiMenu", "24px")}
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={handleShow}
+                    variant="dark"
+                    className={
+                      (!drop ? "!rotate-0" : "") +
+                      " !rounded-full !p-2 rotate-0 md:-rotate-45"
+                    }
+                  >
+                    {Icon("hi", "HiMenu", "24px")}
+                  </Button>
+                )
+              ) : (
+                <Button
+                  variant="dark"
+                  className={
+                    (!drop ? "!rotate-0" : "") +
+                    " !rounded-full !p-2 rotate-0 md:-rotate-45"
+                  }
+                  disabled
+                >
+                  {Icon("hi", "HiMenu", "24px")}
+                </Button>
+              )}
               {/* <Button
               variant="dark"
               className="!rounded-full !p-2 rotate-0 md:-rotate-45"
@@ -129,7 +193,37 @@ function Layout({ children, title = "This is the default title" }: Props) {
         </div>
         {/* </p> */}
       </div>
-      {children}
+      <Offcanvas show={show} onHide={handleClose}>
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Menu</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <div className="font-['PT_Sans_Narrow']">
+            <p className="">
+              <Link href="/">Home</Link>
+            </p>
+            <p className="">
+              <Link href="/daily">Daily</Link>
+            </p>
+            <p className="">
+              <Link href="/weekly">Weekly</Link>
+            </p>
+            <p className="">
+              <Link href="/monthly">Monthly</Link>
+            </p>
+            <p className="">
+              <Link href="/profile">Profile</Link>
+            </p>
+            <p className="">
+              <Link href="/picme">Pic Me</Link>
+            </p>
+            <p className="">
+              <Link href="/bmi">BMI</Link>
+            </p>
+          </div>
+        </Offcanvas.Body>
+      </Offcanvas>
+      <div className="min-h-[75vh]">{children}</div>
       <div className="w-full relative bottom-0">
         <hr className="text-white" />
         <footer className="font-['PT_Sans_Narrow'] text-white text-right mb-1 mr-4">

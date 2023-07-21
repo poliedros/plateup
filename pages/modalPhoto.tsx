@@ -60,9 +60,6 @@ function ModalPhoto(props: any) {
             </Button>
           )}
         </div>
-        {/* <Button variant="secondary" /*onClick={props.onHire()}*>Close</Button>
-        <Button variant="secondary">Take a Shot</Button>
-        <Button variant="primary">Start Camera</Button> */}
       </Modal.Footer>
     </Modal>
   );
